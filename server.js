@@ -6,7 +6,7 @@ const app = express()
 
 const PORT= 3000;
 
-// const movies = [{title: "The Godfather", content: 1970}, {title: "The Interview", content:1998}, {title:"Talaash", content:2012}]
+const movies = [{title: "The Godfather", content: 1970}, {title: "The Interview", content:1998}, {title:"Talaash", content:2012}]
 
 
 
