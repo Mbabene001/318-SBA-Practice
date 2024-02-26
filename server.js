@@ -8,9 +8,9 @@ const PORT= 3000;
 
 // List favorite movies
 const movies = [
-    {id: 1, title: "The Godfather", content: 1970},
-    {id: 2, title: "The Interview", content:1998}, 
-    {id: 3, title:"Talaash", content:2012}
+    {title: "The Godfather", content: 1970},
+    {title: "The Interview", content:1998}, 
+    {title:"Talaash", content:2012}
 ];
 
 // Middleware: 
@@ -62,14 +62,18 @@ app.get('/movies', (req, res) => {
     res.json(movies);
   });
 
-// Route to fetch indvidual movies
+// Route to fetch individual movies by number
 app.route('/:number')
   .get((req, res) => {
-    const index = req.params.number;
-    if (index >= 0 && index < movies.length) {
-        res.render("index", movies[index]);
+    const number = req.params.number;
+    const index = Number(number);
+    const movie = movies[index];
+
+    if (movie) {
+        res.render("index", movie);
     } else {
-        res.status(404).send('Movie not found');
+        res.status(404);
+        res.json({ error: "Movie not found" });
     }
 });
 
