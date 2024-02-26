@@ -14,9 +14,32 @@ const movies = [
     {title:"Talaash", content:2012}
 ];
 
-// Middleware
+// Middleware: 
+
 // Server static files from the styles directory 
 app.use(express.static("./styles"))
+
+//Logging middleware 
+
+app.use ((req, res, next) => {
+    console.log (`${req.method} ${req.url}`);
+    next()
+});
+
+
+
+// Middleware to handle errors
+
+app.use ((err, req, res, next) => {
+    console.error (err.stack);
+    res.status(500). send ('Something aint right');
+});
+
+
+
+
+
+
 
 
 
@@ -42,17 +65,24 @@ app.engine("perscholas", (filePath, options, callback) => {
 
 
 
-//Routes
 
-app.get ('/:number', (req, res)=>{
-    
 
-    res.render ("index", movies[req.params.number]);
-    
-    
-    
-    // res.send("Movies");
-});
+
+// Routes
+
+app.get('/', (req, res) => {
+    res.send('Best Movies Collections');
+  });
+  
+  // Route to fetch all movies
+app.get('/movies', (req, res) => {
+    res.json(movies);
+  });
+  
+  app.get('/:number', (req, res) => {
+    res.render("index", movies[req.params.number]);
+  });
+  
 
 
 //listening
